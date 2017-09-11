@@ -1,0 +1,27 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "package.json for the Flashcard-Generator",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/D-Molloy/Flashcard-Generator.git"
+  },
+  "keywords": [
+    "flashcard",
+    "javascript"
+  ],
+  "author": "Denis Molloy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/D-Molloy/Flashcard-Generator/issues"
+  },
+  "homepage": "https://github.com/D-Molloy/Flashcard-Generator#readme",
+  "dependencies": {
+    "inquirer": "^3.2.3",
+    "jsonfile": "^3.0.1"
+  }
+}
