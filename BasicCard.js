@@ -16,9 +16,7 @@ BasicCard.prototype.createBasic = function () {
         frontOfCard: this.front,
         backOfCard: this.back
     };
-
     cardArray.push(obj);
-    // , {flag: 'a'}
     jsonfile.writeFileSync(file, cardArray); 
 }
 

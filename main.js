@@ -4,7 +4,7 @@ var jsonfile = require('jsonfile');
 var file = 'data.json'
 var fs = require("fs");
 var inquirer = require('inquirer');
-// var objCopy;
+
 var objIter = 0;
 
 function appStart(){
@@ -21,15 +21,13 @@ function appStart(){
         console.log("****Study Flashcards****");
 
         function readCards () {
-            
-
             jsonfile.readFile(file, function(err, obj) {
-                if (objIter != obj.length){
-                    if (obj != undefined) {
+                if (obj != undefined) {
+                    if (objIter != obj.length) {
                        
                         console.log("~~~~~~~  Front  ~~~~~~~");
                         console.log(obj[objIter].frontOfCard);
-                        console.log("~~~~~~~~~~~~~~~~~~~~~~~")
+                        console.log("~~~~~~~~~~~~~~~~~~~~~~~");
 
                         inquirer.prompt([
                             {
@@ -41,39 +39,37 @@ function appStart(){
                         ]).then(function(inquirerResponse){               
                             if (inquirerResponse.readOptions == "Show Solution") {
                                 console.log("~~~~~~~  Back  ~~~~~~~");                               
-                                console.log(obj[objIter].backOfCard)
+                                console.log(obj[objIter].backOfCard);
                                 console.log("~~~~~~~~~~~~~~~~~~~~~~\n");
                                 console.log("+++++  New Card!  +++++");
                                 objIter++;
                                 readCards();
                             } else if (inquirerResponse.readOptions == "Next Card") {
-                                console.log("~~~~~~~Card Skipped!~~~~~~~");
-                                console.log("+++++    New Card!    +++++\n")
+                                console.log("~~~~~~~Card Skipped!~~~~~~~\n");
+                                console.log("+++++    New Card!    +++++");
                                 objIter++;
                                 readCards();
                             } else if (inquirerResponse.readOptions == "Main Menu") {
-                                
                                 objIter = 0;
-                                readCards();
-                            }
-                        })
-
+                                appStart();
+                            };
+                        });
                         } else {
-                            console.log("No cards saved! Please create at least one card first.");
-                            appstart();
+                            console.log("*********************************************");
+                            console.log("*  No cards left!  Returning to Main Menu.  *");
+                            console.log("*********************************************");
+                            objIter = 0;
+                            appStart();
                         }
                     } else {
-                        console.log("*********************************************")
-                        console.log("*  No cards left!  Returning to Main Menu.  *")
-                        console.log("*********************************************")
+                        console.log("************************************************************");
+                        console.log("*  No cards saved! Please create at least one card first.  *");
+                        console.log("************************************************************");
                         appStart();
                     }
-                    });
-
-                }
-
+                });
+            };
             readCards ();
-
         } else if (inquirerResponse.mainOptions == "Create a new basic flashcard") {
             function basicPrompt(){
                 inquirer.prompt([
@@ -104,14 +100,14 @@ function appStart(){
                                     basicPrompt();
                                 } else if (inquirerResponse.basicRestart == "No"){
                                     appStart();
-                                }
-                            })
+                                };
+                            });
                     } else {
                         console.log("Please input an answer for both sides of the flash card.");
                         basicPrompt();
-                    }
-                })
-            }
+                    };
+                });
+            };
             basicPrompt();
         } else if (inquirerResponse.mainOptions == "Create a new cloze flashcard") {
             function clozePrompt(){
@@ -147,25 +143,22 @@ function appStart(){
                                     clozePrompt();
                                 } else if (inquirerResponse.clozeRestart == "No"){
                                     appStart();
-                                }
+                                };
                             })
                         } else {
                             console.log("Cloze keyword not found in text!  Please input the cloze keyword as it appears in the full text you submit.")
                             clozePrompt();
-                        }
+                        };
                     } else {
                         console.log("Please input an answer for both sides of the flash card.");
                         clozePrompt();
-                    }
-    
-                })
-            }
-            clozePrompt();
-        }
-    })
+                    };
+                });
+            };
+         clozePrompt();
+        };
+    });
 };
 
 
 appStart();
-
-// module.exports = appStart;

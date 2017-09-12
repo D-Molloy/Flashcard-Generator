@@ -1,7 +1,7 @@
 [
   {
     "frontOfCard": "Question 1",
-    "backOfCard": "Answer1"
+    "backOfCard": "Answer 1"
   },
   {
     "frontOfCard": "Question 2",
@@ -9,6 +9,6 @@
   },
   {
     "frontOfCard": "Question 3",
-    "backOfCard": "Answer 4"
+    "backOfCard": "Answer 3"
   }
 ]
