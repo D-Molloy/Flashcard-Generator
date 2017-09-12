@@ -4,8 +4,9 @@ var jsonfile = require('jsonfile');
 var file = 'data.json'
 var fs = require("fs");
 var inquirer = require('inquirer');
+// var objCopy;
+var objIter = 0;
 
-// "The Minnesota Vikings are the best team in football".replace("The Minnesota Vikings", "...")
 function appStart(){
     inquirer.prompt([
         {
@@ -16,10 +17,63 @@ function appStart(){
         }
     ]).then(function(inquirerResponse){
         if (inquirerResponse.mainOptions == "Study existing cards"){
-            fs.readFile(file, "utf8", function(err, obj) {
-                var oneCard = Object.keys(obj)[0].frontOfCard;
-                console.log(oneCard);
-              });
+          
+        console.log("****Study Flashcards****");
+
+        function readCards () {
+            
+
+            jsonfile.readFile(file, function(err, obj) {
+                if (objIter != obj.length){
+                    if (obj != undefined) {
+                       
+                        console.log("~~~~~~~  Front  ~~~~~~~");
+                        console.log(obj[objIter].frontOfCard);
+                        console.log("~~~~~~~~~~~~~~~~~~~~~~~")
+
+                        inquirer.prompt([
+                            {
+                                type: "list",
+                                message: "Make a selection:",
+                                choices: ["Show Solution", "Next Card", "Main Menu"],
+                                name: "readOptions"
+                            }
+                        ]).then(function(inquirerResponse){               
+                            if (inquirerResponse.readOptions == "Show Solution") {
+                                console.log("~~~~~~~  Back  ~~~~~~~");                               
+                                console.log(obj[objIter].backOfCard)
+                                console.log("~~~~~~~~~~~~~~~~~~~~~~\n");
+                                console.log("+++++  New Card!  +++++");
+                                objIter++;
+                                readCards();
+                            } else if (inquirerResponse.readOptions == "Next Card") {
+                                console.log("~~~~~~~Card Skipped!~~~~~~~");
+                                console.log("+++++    New Card!    +++++\n")
+                                objIter++;
+                                readCards();
+                            } else if (inquirerResponse.readOptions == "Main Menu") {
+                                
+                                objIter = 0;
+                                readCards();
+                            }
+                        })
+
+                        } else {
+                            console.log("No cards saved! Please create at least one card first.");
+                            appstart();
+                        }
+                    } else {
+                        console.log("*********************************************")
+                        console.log("*  No cards left!  Returning to Main Menu.  *")
+                        console.log("*********************************************")
+                        appStart();
+                    }
+                    });
+
+                }
+
+            readCards ();
+
         } else if (inquirerResponse.mainOptions == "Create a new basic flashcard") {
             function basicPrompt(){
                 inquirer.prompt([
@@ -114,4 +168,4 @@ function appStart(){
 
 appStart();
 
-module.exports = appStart;
+// module.exports = appStart;

@@ -1,6 +1,14 @@
 [
   {
-    "frontOfCard": "What do I like?",
-    "backOfCard": "Coffee"
+    "frontOfCard": "Question 1",
+    "backOfCard": "Answer1"
+  },
+  {
+    "frontOfCard": "Question 2",
+    "backOfCard": "Answer 2"
+  },
+  {
+    "frontOfCard": "Question 3",
+    "backOfCard": "Answer 4"
   }
 ]
